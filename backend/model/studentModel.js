@@ -20,20 +20,34 @@ import mongoose from "mongoose";
 
 // mongosh -> for checking
 
-const todoSchema = new mongoose.Schema({
-    title: {
+const studentSchema = new mongoose.Schema({
+    name: {
         type: String,
         required: true,
         trim: true,
     },
 
-    completed: {
-        type: Boolean,
-        default: false,
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+        lowercase: true,
+    },
+
+    course: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+
+    age: {
+        type: Number,
+        required: true,
     }
 
 }, { timestamps: true });
 
-const Todo = mongoose.model("Todo", todoSchema);
+const Student = mongoose.model("Student", studentSchema);
 
-export { Todo };
+export { Student };

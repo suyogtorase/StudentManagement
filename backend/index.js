@@ -2,7 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import router from './routes/todoRouter.js';
+import router from './routes/studentRouter.js';
 import path from 'path';
 
 dotenv.config();
@@ -19,7 +19,7 @@ app.use(cors({
 app.use(express.json());
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/ToDo")
+  .connect("mongodb://127.0.0.1:27017/StudentManagement")
   .then(() => console.log("MongoDB connected successfully"))
   .catch((err) => {
     console.error("MongoDB connection error:", err.message);

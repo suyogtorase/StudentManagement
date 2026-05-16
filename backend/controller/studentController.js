@@ -1,22 +1,27 @@
-import { Todo } from "../model/todoModel.js";
+import { Student } from "../model/studentModel.js";
 
-// Create Todo
-export const createTodo = async (req, res) => {
+// Create Student
+export const createStudent = async (req, res) => {
     try {
-        const { title } = req.body;
+        const { name, email, course, age } = req.body;
 
-        if (!title) {
+        if (!name || !email || !course || !age) {
             return res.status(400).json({
                 success: false,
-                message: "Title is required"
+                message: "All fields are required"
             });
         }
 
-        const todo = await Todo.create({ title });
+        const student = await Student.create({
+            name,
+            email,
+            course,
+            age
+        });
 
         return res.status(201).json({
             success: true,
-            todo
+            student
         });
 
     } catch (error) {
@@ -27,14 +32,14 @@ export const createTodo = async (req, res) => {
     }
 };
 
-// Get All Todos
-export const getTodos = async (req, res) => {
+// Get All Students
+export const getStudents = async (req, res) => {
     try {
-        const todos = await Todo.find().sort({ createdAt: -1 });
+        const students = await Student.find().sort({ createdAt: -1 });
 
         return res.status(200).json({
             success: true,
-            todos
+            students
         });
 
     } catch (error) {
@@ -45,27 +50,27 @@ export const getTodos = async (req, res) => {
     }
 };
 
-// Update Todo
-export const updateTodo = async (req, res) => {
+// Update Student
+export const updateStudent = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const todo = await Todo.findByIdAndUpdate(
+        const student = await Student.findByIdAndUpdate(
             id,
             req.body,
             { new: true }
         );
 
-        if (!todo) {
+        if (!student) {
             return res.status(404).json({
                 success: false,
-                message: "Todo not found"
+                message: "Student not found"
             });
         }
 
         return res.status(200).json({
             success: true,
-            todo
+            student
         });
 
     } catch (error) {
@@ -76,16 +81,16 @@ export const updateTodo = async (req, res) => {
     }
 };
 
-// Delete Todo
-export const deleteTodo = async (req, res) => {
+// Delete Student
+export const deleteStudent = async (req, res) => {
     try {
         const { id } = req.params;
 
-        await Todo.findByIdAndDelete(id);
+        await Student.findByIdAndDelete(id);
 
         return res.status(200).json({
             success: true,
-            message: "Todo deleted"
+            message: "Student deleted successfully"
         });
 
     } catch (error) {
